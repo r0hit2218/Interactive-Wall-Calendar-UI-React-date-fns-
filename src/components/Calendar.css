@@ -1,0 +1,302 @@
+/* ROOT */
+.calendar-wrapper {
+  width: 420px;
+  margin: 60px auto;
+  font-family: "Segoe UI", Arial, sans-serif;
+
+  --primary: #1976d2;
+  --range: #e3f2fd;
+}
+
+/* HANGER */
+.hanger {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: -10px;
+}
+
+.ring {
+  width: 18px;
+  height: 18px;
+  border: 3px solid black;
+  border-radius: 50%;
+  background: white;
+}
+
+/* IMAGE */
+.top-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.top-image img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* SPIRAL */
+.top-image::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    #ccc,
+    #ccc 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* MONTH TEXT */
+.month-overlay {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  text-align: right;
+}
+
+.month-overlay h2 {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.9);
+}
+
+.month-overlay h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+}
+
+/* SHEET */
+.bottom-section {
+  display: flex;
+  gap: 16px;
+  padding: 20px 18px;
+  background: white;
+  margin-top: -30px;
+
+  border-radius: 24px 24px 12px 12px; 
+
+  box-shadow: 
+    0 25px 50px rgba(0,0,0,0.18),
+    0 4px 10px rgba(0,0,0,0.08); 
+
+  position: relative;
+  z-index: 2;
+}
+
+/* NOTES */
+.notes-section {
+  width: 45%;
+  border-right: 1px solid #eee;
+  padding-right: 12px;
+}
+
+/* TEXTAREA */
+textarea {
+  width: 100%;
+  height: 110px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  resize: none;
+  font-size: 13px;
+  outline: none;
+}
+
+/* CALENDAR */
+.calendar-section {
+  width: 55%;
+  overflow: hidden;              /* 🔥 FIX 1 */
+  position: relative;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 4px;
+  z-index: 3;
+}
+
+.nav span {
+  font-weight: 700;
+  font-size: 15px;
+  color: #222;
+}
+
+.nav button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.nav button:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+.nav button:active {
+  transform: scale(0.92);
+}
+
+/* DAYS */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 11px;
+  margin-bottom: 6px;
+  color: #888;
+  gap: 4px;
+}
+
+/* 🔥 GRID WRAPPER (CRITICAL FIX) */
+.grid-wrapper {
+  min-height: 230px;             /* 🔥 FIX 2 */
+  position: relative;
+}
+
+/* ROW */
+.row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+/* CELL */
+.cell {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 6px;
+  position: relative;
+  transition: 0.2s;
+}
+
+.cell:hover {
+  background: #f2f2f2;
+}
+
+/* DISABLED */
+.disabled {
+  color: #c5c5c5;
+}
+
+/* TODAY */
+.today {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* RANGE */
+.in-range {
+  background: var(--range);
+}
+
+/* START / END */
+.start,
+.end {
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* HOLIDAY DOT */
+.dot {
+  width: 5px;
+  height: 5px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* CLEAR BUTTON */
+.clear-btn {
+  font-size: 11px;
+  padding: 4px 8px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #ddd;
+}
+
+/* 🔥 STRONG ANIMATION FIX */
+.grid-wrapper.right {
+  animation: slideLeft 0.35s ease;
+}
+
+.grid-wrapper.left {
+  animation: slideRight 0.35s ease;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(80px);   /* 🔥 FIX 3 */
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    width: 95%;
+  }
+
+  .bottom-section {
+    flex-direction: column;
+  }
+
+  .notes-section {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+
+  .calendar-section {
+    width: 100%;
+  }
+}
+
+.top-image {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
